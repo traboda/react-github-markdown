@@ -1,7 +1,7 @@
 {
   "name": "react-github-markdown",
   "version": "1.0.0-beta.0",
-  "description": "React github Markdown",
+  "description": "Github Markdown Editor & Viewer for React",
   "scripts": {
     "build": "rm -rf dist && rollup -c",
     "lint": "eslint src/ --ext .ts,.tsx",
@@ -15,7 +15,7 @@
     "aswinshenoy <aswinshenoy65@gmail.com>",
     "Abhiram Krishna <abhikrishnaram88@gmail.com>"
   ],
-  "license": "GPL-3.0-only",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/traboda/react-github-markdown/issues"
   },
