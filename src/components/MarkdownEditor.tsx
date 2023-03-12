@@ -1,19 +1,10 @@
 import React from 'react';
 import { MarkdownEditor as PrimerMarkdownEditor } from '@primer/react/drafts';
-import { ThemeProvider, theme } from '@primer/react';
-import deepmerge from 'deepmerge';
+import { ThemeProvider } from '@primer/react';
 import { MarkdownEditorProps as PrimerMarkdownEditorProps } from '@primer/react/lib-esm/drafts/MarkdownEditor';
-import MarkdownIt from 'markdown-it';
-import clsx from 'clsx';
 
-import style from './markdownEditor.module.scss';
-
-// custom colors here
-const customTheme = deepmerge(theme, {});
-
-const markdownBody = style['markdown-body'];
-const markdownBodyDark = style['markdown-body-dark'];
-const md = new MarkdownIt({ html: true });
+import markdownToHTML from '../utils/markdownToHTML';
+import style from '../style.module.scss';
 
 export type MarkdownEditorProps = Partial<PrimerMarkdownEditorProps> & {
   value: string,
@@ -24,12 +15,9 @@ export type MarkdownEditorProps = Partial<PrimerMarkdownEditorProps> & {
 };
 
 const MarkdownEditor = (props: MarkdownEditorProps) => {
-  const renderMarkdown = async (markdown: string) =>
-    `<div class="${clsx(markdownBody, props.isDarkTheme && markdownBodyDark)}">${md.render(markdown)}</div>`;
-
   return (
-      <ThemeProvider theme={customTheme} colorMode={props.isDarkTheme ? 'dark' : 'light'}>
-          <PrimerMarkdownEditor {...props} onRenderPreview={renderMarkdown}>
+      <ThemeProvider colorMode={props.isDarkTheme ? 'dark' : 'light'}>
+          <PrimerMarkdownEditor {...props} onRenderPreview={async markdown => markdownToHTML(markdown, props.isDarkTheme)}>
               <PrimerMarkdownEditor.Label>
                   <span className={style.label}>
                       {props.label}

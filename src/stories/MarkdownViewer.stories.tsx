@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { useDarkMode } from 'storybook-dark-mode';
 
-import { MarkdownEditor } from '../index';
+import { MarkdownViewer } from '../index';
 
 const meta: Meta = {
-  title: 'User Inputs/Markdown Editor',
-  component: MarkdownEditor,
+  title: 'User Inputs/Markdown Viewer',
+  component: MarkdownViewer,
   parameters: {
     controls: { expanded: true },
   },
@@ -15,17 +15,13 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story = args => {
-  const [value, onChange] = useState(args.value);
-  const isDarkTheme = useDarkMode();
-
   return ( // @ts-ignore
-      <MarkdownEditor {...args} value={value} isDarkTheme={isDarkTheme} onChange={onChange} />
+      <MarkdownViewer {...args} isDarkTheme={useDarkMode()} />
   );
 };
 
 export const Default = Template.bind({});
 Default.args = {
-  label: 'This is the label',
   value: `Text can be **bold**, _italic_, or ~~strikethrough~~. [Links](https://github.com) should be blue with no underlines (unless hovered over).
 
 There should be whitespace between paragraphs. There should be whitespace between paragraphs. There should be whitespace between paragraphs. There should be whitespace between paragraphs.
