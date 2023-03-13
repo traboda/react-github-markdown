@@ -5,6 +5,7 @@ import { MarkdownEditorProps as PrimerMarkdownEditorProps } from '@primer/react/
 
 import markdownToHTML from '../utils/markdownToHTML';
 import style from '../style.module.scss';
+import WithSyntaxHighlighting from '../utils/WithSyntaxHighlighting';
 
 export type MarkdownEditorProps = Partial<PrimerMarkdownEditorProps> & {
   value: string,
@@ -17,16 +18,18 @@ export type MarkdownEditorProps = Partial<PrimerMarkdownEditorProps> & {
 const MarkdownEditor = (props: MarkdownEditorProps) => {
   return (
       <ThemeProvider colorMode={props.isDarkTheme ? 'dark' : 'light'}>
-          <SSRProvider>
-              <PrimerMarkdownEditor {...props} onRenderPreview={async markdown => markdownToHTML(markdown, props.isDarkTheme)}>
-                  <PrimerMarkdownEditor.Label>
-                      <span className={style.label}>
-                          {props.label}
-                          {props.isRequired && <span className={style.required}>*</span>}
-                      </span>
-                  </PrimerMarkdownEditor.Label>
-              </PrimerMarkdownEditor>
-          </SSRProvider>
+          <WithSyntaxHighlighting isDarkTheme={props.isDarkTheme}>
+              <SSRProvider>
+                  <PrimerMarkdownEditor {...props} onRenderPreview={async markdown => markdownToHTML(markdown, props.isDarkTheme)}>
+                      <PrimerMarkdownEditor.Label>
+                          <span className={style.label}>
+                              {props.label}
+                              {props.isRequired && <span className={style.required}>*</span>}
+                          </span>
+                      </PrimerMarkdownEditor.Label>
+                  </PrimerMarkdownEditor>
+              </SSRProvider>
+          </WithSyntaxHighlighting>
       </ThemeProvider>
   );
 };

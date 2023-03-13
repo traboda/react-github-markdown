@@ -4,6 +4,7 @@ import { MarkdownViewerProps as PrimerMarkdownViewerProps } from '@primer/react/
 import { SSRProvider } from '@primer/react';
 
 import markdownToHTML from '../utils/markdownToHTML';
+import WithSyntaxHighlighting from '../utils/WithSyntaxHighlighting';
 
 type DangerousHtmlContainer = Required<DOMAttributes<unknown>>['dangerouslySetInnerHTML'];
 export type MarkdownViewerProps = PrimerMarkdownViewerProps & {
@@ -20,9 +21,11 @@ const MarkdownViewer = (props: MarkdownViewerProps) => {
   }, [props.value]);
 
   return (
-      <SSRProvider>
-          <PrimerMarkdownViewer {...props} dangerousRenderedHTML={{ __html: content }} />
-      </SSRProvider>
+      <WithSyntaxHighlighting isDarkTheme={props.isDarkTheme}>
+          <SSRProvider>
+              <PrimerMarkdownViewer {...props} dangerousRenderedHTML={{ __html: content }} />
+          </SSRProvider>
+      </WithSyntaxHighlighting>
   );
 };
 
