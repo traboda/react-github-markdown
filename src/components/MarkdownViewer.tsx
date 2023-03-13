@@ -1,6 +1,7 @@
 import React, { DOMAttributes, useEffect, useState } from 'react';
 import { MarkdownViewer as PrimerMarkdownViewer } from '@primer/react/drafts';
 import { MarkdownViewerProps as PrimerMarkdownViewerProps } from '@primer/react/lib-esm/drafts/MarkdownViewer/MarkdownViewer';
+import { SSRProvider } from '@primer/react';
 
 import markdownToHTML from '../utils/markdownToHTML';
 
@@ -19,7 +20,9 @@ const MarkdownViewer = (props: MarkdownViewerProps) => {
   }, [props.value]);
 
   return (
-      <PrimerMarkdownViewer {...props} dangerousRenderedHTML={{ __html: content }} />
+      <SSRProvider>
+          <PrimerMarkdownViewer {...props} dangerousRenderedHTML={{ __html: content }} />
+      </SSRProvider>
   );
 };
 
