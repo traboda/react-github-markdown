@@ -71,7 +71,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
                       </PrimerMarkdownEditor.Label>
                       )}
                       <PrimerMarkdownEditor.Toolbar>
-                          <ToolbarButtons buttons={props?.toolbarButtons ?? []} />
+                          <ToolbarButtons buttons={props.toolbarButtons ?? undefined} />
                       </PrimerMarkdownEditor.Toolbar>
                   </PrimerMarkdownEditor>
               </SSRProvider>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { MarkdownViewer as PrimerMarkdownViewer } from '@primer/react/drafts';
-import { SSRProvider } from '@primer/react';
+import { SSRProvider, ThemeProvider } from '@primer/react';
 
 import markdownToHTML from '../utils/markdownToHTML';
 import WithSyntaxHighlighting from '../utils/WithSyntaxHighlighting';
@@ -12,22 +12,24 @@ export type MarkdownViewerProps = {
 };
 
 const MarkdownViewer = (props: MarkdownViewerProps) => {
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState<null | string>(null);
 
   useEffect(() => {
-    setContent(markdownToHTML(props.value, props.isDarkTheme));
+    setContent(markdownToHTML(props.value || '', props.isDarkTheme));
   }, [props.value]);
 
   return (
-      <WithSyntaxHighlighting isDarkTheme={props.isDarkTheme}>
-          <SSRProvider>
-              <PrimerMarkdownViewer
-                  {...props}
-                  openLinksInNewTab={props?.openLinksInNewTab}
-                  dangerousRenderedHTML={{ __html: content }}
-              />
-          </SSRProvider>
-      </WithSyntaxHighlighting>
+      <ThemeProvider colorMode={props.isDarkTheme ? 'dark' : 'light'}>
+          <WithSyntaxHighlighting isDarkTheme={props.isDarkTheme}>
+              <SSRProvider>
+                  <PrimerMarkdownViewer
+                      loading={content === null}
+                      openLinksInNewTab={props?.openLinksInNewTab}
+                      dangerousRenderedHTML={{ __html: content || '' }}
+                  />
+              </SSRProvider>
+          </WithSyntaxHighlighting>
+      </ThemeProvider>
   );
 };
 
