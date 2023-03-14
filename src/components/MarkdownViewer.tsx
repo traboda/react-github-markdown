@@ -1,16 +1,14 @@
-import React, { DOMAttributes, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { MarkdownViewer as PrimerMarkdownViewer } from '@primer/react/drafts';
-import { MarkdownViewerProps as PrimerMarkdownViewerProps } from '@primer/react/lib-esm/drafts/MarkdownViewer/MarkdownViewer';
 import { SSRProvider } from '@primer/react';
 
 import markdownToHTML from '../utils/markdownToHTML';
 import WithSyntaxHighlighting from '../utils/WithSyntaxHighlighting';
 
-type DangerousHtmlContainer = Required<DOMAttributes<unknown>>['dangerouslySetInnerHTML'];
-export type MarkdownViewerProps = PrimerMarkdownViewerProps & {
+export type MarkdownViewerProps = {
   value: string,
   isDarkTheme: boolean,
-  dangerousRenderedHTML?: DangerousHtmlContainer,
+  openLinksInNewTab?: boolean,
 };
 
 const MarkdownViewer = (props: MarkdownViewerProps) => {
@@ -23,7 +21,11 @@ const MarkdownViewer = (props: MarkdownViewerProps) => {
   return (
       <WithSyntaxHighlighting isDarkTheme={props.isDarkTheme}>
           <SSRProvider>
-              <PrimerMarkdownViewer {...props} dangerousRenderedHTML={{ __html: content }} />
+              <PrimerMarkdownViewer
+                  {...props}
+                  openLinksInNewTab={props?.openLinksInNewTab}
+                  dangerousRenderedHTML={{ __html: content }}
+              />
           </SSRProvider>
       </WithSyntaxHighlighting>
   );

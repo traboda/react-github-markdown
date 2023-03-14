@@ -1,6 +1,6 @@
 {
   "name": "react-github-markdown",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Github Markdown Editor & Viewer for React",
   "scripts": {
     "build": "rm -rf dist && rollup -c",
