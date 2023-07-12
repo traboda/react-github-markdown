@@ -22,8 +22,6 @@ const ToolbarButtons = ({
 
   const cmdOrCtrl = isMacOS() ? 'Cmd' : 'Ctrl';
 
-  console.log((!(buttons?.length > 0)));
-
   return (
       <>
           <Box>

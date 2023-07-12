@@ -35,7 +35,7 @@ const App = () => {
   return (
     <div>
       <MarkdownEditor
-        markdown={markdown}
+        value={markdown}
         onChange={setMarkdown}
       />
       <MarkdownViewer markdown={markdown} />
